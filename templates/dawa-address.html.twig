@@ -1,0 +1,40 @@
+{% set classes = [
+    'dawa-address',
+    view ? 'dawa-address__' ~ view,
+] %}
+<div{{ attributes.addClass(classes) }}>
+{% if data.vejnavn or data.husnr or data.etage or data.dør %}
+    <div>
+        {% if data.vejnavn %}
+        <span class="street-name">{{ data.vejnavn }}</span>
+        {% endif %}
+        {% if data.husnr %}
+        <span class="house-number">
+            {{- data.husnr -}}
+            {%- if data.etage or data.dør -%},{%- endif -%}
+        </span>
+        {% endif %}
+        {% if data.etage %}
+            <span class="floor">{{ data.etage }}.</span>
+        {% endif %}
+        {% if data.dør %}
+            <span class="door">{{ data.dør }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% if data.postnr or data.postnrnavn %}
+        <div>
+            {% if data.postnr %}
+                <span class="postal-code">{{ data.postnr }}</span>
+            {% endif %}
+            {% if data.postnrnavn %}
+                <span class="city">{{ data.postnrnavn }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if show_country %}
+        <div>
+            <span class="country">{{ "Denmark"|t }}</span>
+        </div>
+    {% endif %}
+</div>

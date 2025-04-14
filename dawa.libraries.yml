@@ -1,0 +1,23 @@
+autocomplete:
+  css:
+    theme:
+      css/dawa_address.css: {}
+  js:
+    js/dawa-autocomplete2.js: {}
+    js/dawa_address.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - dawa/corejs
+    - dawa/polyfill-fetch
+
+corejs:
+  version: 2.4.1
+  js:
+    js/core.min.js: {}
+
+polyfill-fetch:
+  version: 2.0.3
+  js:
+    js/fetch.min.js: {}

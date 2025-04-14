@@ -1,0 +1,3 @@
+services:
+  dawa.api.addresses:
+    class: Drupal\dawa\Controller\Addresses

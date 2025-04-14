@@ -1,0 +1,12 @@
+name: Custom Forms - Dawa Address field
+type: module
+description: Adds a Dawa address field to custom forms.
+package: Custom Forms
+core_version_requirement: ^9 || ^10
+dependencies:
+  - custom_forms
+  - custom_forms_states
+  - dawa
+
+interface translation project: dawa_custom_forms_field
+interface translation server pattern: modules/contrib/dawa/modules/custom_forms_field/translations/%language.po

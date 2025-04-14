@@ -1,0 +1,13 @@
+{% set classes = [
+    'dawa-address',
+    view ? 'dawa-address__' ~ view,
+] %}
+<div{{ attributes.addClass(classes) }}>
+    {%- if data.adressebetegnelse -%}
+        <span class="designation">{{ data.adressebetegnelse }}</span>
+        {%- if show_country -%},{%- endif -%}
+    {%- endif -%}
+    {% if show_country %}
+        <span class="country">{{ "Denmark"|t }}</span>
+    {% endif %}
+</div>

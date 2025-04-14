@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"X-Generator: Poedit 2.0.5\n"
+
+# In case this is not added by another module, add translation for country name.
+msgid "Denmark"
+msgstr "Danmark"
+
+msgid "Request failed due to GuzzleException (line @line in @file) @exception"
+msgstr "Anmodning fejlede pga. en GuzzleException (linje @line i @file) @exception"
+
+msgid "Request failed with statuscode: @code, reason: %reason"
+msgstr "Anmodning fejlede med statuskode: @code, årsag: %reason"
+
+msgid "Request failed with statuscode @code"
+msgstr "Anmodning fejlede med statuskode @code"
+
+msgid "Invalid address, please select one from the suggestions."
+msgstr "Ugyldig adresse, vælg venligst en fra listen af forslag."
+
+msgid "Single line"
+msgstr "Enkelt linje"
+
+msgid "Full address"
+msgstr "Fuld adresse"
+
+msgid "Leaflet map"
+msgstr "Leaflet kort"
+
+msgid "<b>Display as:</b> @display_as"
+msgstr "<b>Vis som:</b> @display_as"
+
+msgid "Display as"
+msgstr "Vis som"
+
+msgid "<b>Include country:</b> @include_country."
+msgstr "<b>Inkludér land:</b> @include_country."
+
+msgid "Include country"
+msgstr "Inkludér land"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "The entered address value"
+msgstr "Den indtastede adresse værdi"
+
+msgid "Address data"
+msgstr "Adresse data"
+
+msgid "DAWA Address autocomplete"
+msgstr "DAWA Autofuldført adresse"
+
+msgid "DAWA Address autocomplete widget"
+msgstr "DAWA Autofuldført adresse widget"
+
+msgid "DAWA Address autocomplete formatter"
+msgstr "DAWA Autofuldført adresse formatering"
+
+msgid "Provides advanced element for storing, validating and displaying danish postal addresses."
+msgstr "Tilbyder avanceret element til lagring, validering og visning af danske postadresser."
+
+msgid "DAWA ID"
+msgstr "DAWA ID"
+
+msgid "Coordinates"
+msgstr "Koordinater"

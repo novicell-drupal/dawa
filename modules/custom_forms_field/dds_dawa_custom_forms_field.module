@@ -1,0 +1,59 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function dawa_custom_forms_field_theme() {
+  return [
+    'dawa_address' => [
+      'variables' => [
+        'id' => NULL,
+        'data' => NULL,
+        'view' => NULL,
+        'show_country' => TRUE
+      ],
+    ],
+    'dawa_address__inline' => [
+      'base hook' => 'dawa_address',
+    ],
+    'dawa_address__designation' => [
+      'base hook' => 'dawa_address',
+    ],
+    'dawa_address__leaflet' => [
+      'base hook' => 'dawa_address',
+      'variables' => [
+        'leaflet' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function dawa_custom_forms_field_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.dawa_custom_forms_field':
+      return 'Adds a Dawa address field to custom forms.';
+  }
+}
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function dawa_custom_forms_field_locale_translation_projects_alter(&$projects) {
+  $module_handler = \Drupal::service('module_handler');
+  $path = $module_handler->getModule('dawa_custom_forms_field')->getPath();
+  $projects['dawa_custom_forms_field']['info']['interface translation server pattern'] = $path.'/translations/%language.po';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function dawa_custom_forms_field_form_custom_form_fields_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'dawa/polyfill-fetch';
+  $form['#attached']['library'][] = 'dawa/corejs';
+  $form['#attached']['library'][] = 'dawa/dawa';
+}

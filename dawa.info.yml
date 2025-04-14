@@ -1,0 +1,12 @@
+name: DAWA (Danmarks Adressers Web API)
+type: module
+description: Adds API service for DAWA and address autocomplete fields.
+package: Drupal Premium
+core: 8.x
+core_version_requirement: ^10
+
+dependencies:
+  - jquery_once
+
+interface translation project: dawa
+interface translation server pattern: modules/contrib/dawa/translations/%language.po

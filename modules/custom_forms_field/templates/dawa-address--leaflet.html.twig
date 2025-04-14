@@ -1,0 +1,7 @@
+{% set classes = [
+    'dawa-address',
+    view ? 'dawa-address__' ~ view,
+] %}
+<div{{ attributes.addClass(classes) }}>
+    {{ leaflet }}
+</div>
