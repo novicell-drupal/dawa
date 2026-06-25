@@ -2,15 +2,15 @@ autocomplete:
   css:
     theme:
       css/dawa_address.css: {}
+      css/adressevaelger.css: {}
   js:
-    js/dawa-autocomplete2.js: {}
+    js/adressevaelger.iife.js: {}
     js/dawa_address.js: {}
   dependencies:
     - core/drupal
+    - core/drupalSettings
     - core/jquery
     - core/jquery.once
-    - dawa/corejs
-    - dawa/polyfill-fetch
 
 corejs:
   version: 2.4.1

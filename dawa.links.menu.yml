@@ -1,0 +1,5 @@
+dawa.settings:
+  title: 'DAWA address settings'
+  route_name: dawa.settings
+  description: 'Configure Adressevaelger token and API URL.'
+  parent: system.admin_config_services
