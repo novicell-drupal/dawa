@@ -1,19 +1,30 @@
 "use strict";
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
   var autofocus_addresses = [];
 
   Drupal.behaviors.dawa = {
     attach: function (context, settings) {
 
       $('.js-dawa-autocomplete').once('dawa_autocomplete').each(function() {
+        var adressevaelgerSettings = (drupalSettings.dawa && drupalSettings.dawa.adressevaelger) || {};
+        if (!adressevaelgerSettings.token) {
+          return;
+        }
+
         var input = $(this).find('.js-autocomplete-field');
         var id_field = input.attr('data-dawa-id');
         var target = $(this).find('input[name="' + id_field + '"]');
 
-        dawaAutocomplete.dawaAutocomplete(input[0], {
+        adressevaelger.adressevaelger(input[0], {
           select: function(selected) {
-            if (selected.data.id.length > 0) {
-              target.val(selected.data.id);
+            var selectedAddress = selected.adresse || {};
+            var selectedId = selectedAddress.id_lokalid || '';
+
+            if (selectedId.length > 0) {
+              target.val(selectedId);
+              if (selectedAddress.adressebetegnelse) {
+                input.val(selectedAddress.adressebetegnelse);
+              }
               input.trigger('dawa:selected');
             } else {
               target.val('');
@@ -21,12 +32,13 @@
             input.trigger('change');
             // Trigger event after a short delay to ensure drupals form api doesn't forget the entered value.
             setTimeout(function () {
-              autofocus_addresses.push(selected.data.id);
+              autofocus_addresses.push(selectedId);
               input.trigger('dawa_autocomplete_finished');
             }, 30);
           },
-          params: {per_side: 10},
-          multiline: true
+          token: adressevaelgerSettings.token,
+          apiUrl: adressevaelgerSettings.apiUrl || undefined,
+          maksimum: 10
         });
 
         input.on('focus', function () {
@@ -46,4 +58,4 @@
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

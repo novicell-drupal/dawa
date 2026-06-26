@@ -1,0 +1,7 @@
+dawa.settings:
+  path: '/admin/config/services/dawa'
+  defaults:
+    _title: 'DAWA address settings'
+    _form: 'Drupal\dawa\Form\DawaSettingsForm'
+  requirements:
+    _permission: 'administer dawa settings'

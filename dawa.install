@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for DAWA.
+ */
+
+use Drupal\Core\Utility\UpdateException;
+
+/**
+ * Refresh stored DAWA address data through Adressevaelger.
+ */
+function dawa_update_10001(&$sandbox) {
+  $token = trim((string) \Drupal::config('dawa.settings')->get('token'));
+  if ($token === '') {
+    throw new UpdateException('Configure the Adressevaelger token at /admin/config/services/dawa before running dawa_update_10001.');
+  }
+
+  $database = \Drupal::database();
+  $tables = [
+    'node__field_dawa_address',
+    'node_revision__field_dawa_address',
+    'user__field_dawa_address',
+  ];
+
+  if (!isset($sandbox['items'])) {
+    $sandbox['items'] = [];
+
+    foreach ($tables as $table) {
+      if (!$database->schema()->tableExists($table)) {
+        continue;
+      }
+
+      $query = $database->select($table, 'd')
+        ->fields('d');
+      $query->condition('field_dawa_address_id', '', '<>');
+      $rows = $query->execute()->fetchAll();
+
+      foreach ($rows as $row) {
+        $sandbox['items'][] = [
+          'table' => $table,
+          'entity_id' => $row->entity_id,
+          'revision_id' => $row->revision_id ?? NULL,
+          'langcode' => $row->langcode,
+          'delta' => $row->delta,
+          'id' => $row->field_dawa_address_id,
+          'value' => $row->field_dawa_address_value,
+        ];
+      }
+    }
+
+    $sandbox['total'] = count($sandbox['items']);
+    $sandbox['processed'] = 0;
+    $sandbox['failed'] = 0;
+  }
+
+  /** @var \Drupal\dawa\Controller\Addresses $address_service */
+  $address_service = \Drupal::service('dawa.api.addresses');
+  $limit = 10;
+
+  while ($limit-- > 0 && $item = array_shift($sandbox['items'])) {
+    $normalized = $address_service->addressLookup($item['id'], 'mini');
+    if ($normalized === FALSE) {
+      $sandbox['failed']++;
+      $sandbox['processed']++;
+      continue;
+    }
+
+    $query = $database->update($item['table'])
+      ->fields([
+        'field_dawa_address_value' => $normalized['betegnelse'] ?: $item['value'],
+        'field_dawa_address_data' => serialize($normalized),
+      ])
+      ->condition('entity_id', $item['entity_id'])
+      ->condition('langcode', $item['langcode'])
+      ->condition('delta', $item['delta']);
+
+    if ($item['revision_id'] !== NULL) {
+      $query->condition('revision_id', $item['revision_id']);
+    }
+
+    $query->execute();
+    $sandbox['processed']++;
+  }
+
+  if ($sandbox['total'] > 0) {
+    $sandbox['#finished'] = $sandbox['processed'] / $sandbox['total'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+
+  if ($sandbox['#finished'] >= 1) {
+    return t('Refreshed @processed DAWA address values through Adressevaelger. @failed lookup(s) failed.', [
+      '@processed' => $sandbox['processed'],
+      '@failed' => $sandbox['failed'],
+    ]);
+  }
+}

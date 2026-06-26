@@ -1,0 +1,3 @@
+administer dawa settings:
+  title: 'Administer DAWA address settings'
+  description: 'Configure the Adressevaelger token and API URL.'

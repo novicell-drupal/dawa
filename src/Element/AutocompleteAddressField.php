@@ -80,6 +80,8 @@ class AutocompleteAddressField extends FormElement {
    *   The $element with prepared variables ready for input.html.twig.
    */
   public static function processAutocompleteAddressField($element) {
+    $settings = \Drupal::config('dawa.settings');
+
     $element['#wrapper_attributes']['class'][] = 'dawa-autocomplete';
     $element['#wrapper_attributes']['class'][] = 'js-dawa-autocomplete';
     $element['#element_validate'] = [[get_called_class(), 'validateAutocompleteAddressField']];
@@ -112,7 +114,15 @@ class AutocompleteAddressField extends FormElement {
       '#attached' => [
         'library' => [
           'dawa/autocomplete'
-        ]
+        ],
+        'drupalSettings' => [
+          'dawa' => [
+            'adressevaelger' => [
+              'token' => $settings->get('token') ?? '',
+              'apiUrl' => $settings->get('api_url') ?: 'https://adressevaelger.dk',
+            ],
+          ],
+        ],
       ]
     ];
     // Title handling
