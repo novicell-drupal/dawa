@@ -33,7 +33,7 @@ class DawaSettingsForm extends ConfigFormBase {
     $form['token'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Adressevaelger token'),
-      '#default_value' => $settings->get('token') ?? '',
+      '#default_value' => $settings->get('token') ?: 'adressevaelger123',
       '#required' => TRUE,
       '#description' => $this->t('Token used by the Adressevaelger API and browser component.'),
     ];

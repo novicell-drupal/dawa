@@ -118,7 +118,7 @@ class AutocompleteAddressField extends FormElement {
         'drupalSettings' => [
           'dawa' => [
             'adressevaelger' => [
-              'token' => $settings->get('token') ?? '',
+              'token' => $settings->get('token') ?: 'adressevaelger123',
               'apiUrl' => $settings->get('api_url') ?: 'https://adressevaelger.dk',
             ],
           ],

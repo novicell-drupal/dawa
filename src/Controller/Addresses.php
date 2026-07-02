@@ -31,7 +31,7 @@ class Addresses {
    * Get the configured Adressevaelger token.
    */
   protected function getToken(): string {
-    return trim((string) \Drupal::config('dawa.settings')->get('token'));
+    return trim((string) (\Drupal::config('dawa.settings')->get('token') ?: 'adressevaelger123'));
   }
 
   /**

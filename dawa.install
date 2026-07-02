@@ -11,7 +11,7 @@ use Drupal\Core\Utility\UpdateException;
  * Refresh stored DAWA address data through Adressevaelger.
  */
 function dawa_update_10001(&$sandbox) {
-  $token = trim((string) \Drupal::config('dawa.settings')->get('token'));
+  $token = trim((string) (\Drupal::config('dawa.settings')->get('token') ?: 'adressevaelger123'));
   if ($token === '') {
     throw new UpdateException('Configure the Adressevaelger token at /admin/config/services/dawa before running dawa_update_10001.');
   }
