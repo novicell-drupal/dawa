@@ -41,10 +41,15 @@ class Addresses {
    *   The DAWA API endpoint, must start with /
    * @param array $parameters
    *   An optional array of query parameters to pass to the endpoint
+   * @param bool $throw_on_error
+   *   Whether Guzzle exceptions should be passed to the caller.
    *
    * @return bool|mixed
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   *   When error propagation is requested and the request fails.
    */
-  protected function request($endpoint, $parameters = []) {
+  protected function request($endpoint, $parameters = [], $throw_on_error = FALSE) {
     $token = $this->getToken();
     if ($token === '') {
       \Drupal::logger('DAWA Adresses')->error($this->t('Adressevaelger token is not configured.'));
@@ -58,6 +63,9 @@ class Addresses {
         'query' => $parameters,
       ]);
     } catch (GuzzleException $e) {
+      if ($throw_on_error) {
+        throw $e;
+      }
       $message = $this->t('Request failed due to GuzzleException (line @line in @file) @exception', ['@line' => $e->getLine(), '@file' => $e->getFile(), '@exception' => $e->getMessage()]);
       \Drupal::logger('DAWA Adresses')->error($message);
       return FALSE;
@@ -125,12 +133,17 @@ class Addresses {
    *     - 'adgangspunkt' for a accesspoint.
    *     - 'vejpunkt' for a roadpoint.
    *     - NULL to ignore this setting
+   * @param bool $throw_on_error
+   *   Whether Guzzle exceptions should be passed to the caller.
    *
    * @return bool|array
    *   Returns an array if successful, otherwise FALSE.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   *   When error propagation is requested and the request fails.
    */
-  public function addressLookup($id, $structure = NULL, $geometry = NULL) {
-    $result = $this->request('/adresser/' . $id);
+  public function addressLookup($id, $structure = NULL, $geometry = NULL, $throw_on_error = FALSE) {
+    $result = $this->request('/adresser/' . $id, [], $throw_on_error);
     if (empty($result['adresse'])) {
       return FALSE;
     }
