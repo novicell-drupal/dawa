@@ -5,7 +5,7 @@ namespace Drupal\dawa\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Render\Element\FormElementBase;
 
 /**
  * Provides a one-line text field form element for dawa address autocomplete.
@@ -26,7 +26,7 @@ use Drupal\Core\Render\Element\FormElement;
  *
  * @FormElement("dawa_autocomplete")
  */
-class AutocompleteAddressField extends FormElement {
+class AutocompleteAddressField extends FormElementBase {
 
   /**
    * {@inheritdoc}
