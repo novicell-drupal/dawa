@@ -9,7 +9,7 @@
     "homepage": "https://www.novicell.dk",
     "minimum-stability": "dev",
     "require": {
-        "drupal/core": "^10",
+        "drupal/core": "^10.3 || ^11",
         "drupal/jquery_once": "^1.0"
     }
 }

@@ -2,7 +2,7 @@ name: Transform API - Dawa Address field
 type: module
 description: Adds Transform API compatibility to a Dawa address field.
 package: Web services
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10.3 || ^11
 dependencies:
   - dawa
   - transform_api
